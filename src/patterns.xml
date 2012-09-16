@@ -1,0 +1,15 @@
+<!--
+
+Patterns configuration.
+
+	match: Data to be matched
+	match_bin: 0/1 -> The data is binary (hex. string)
+	replace: Data to replace the matched one
+	replace_bin: 0/1 -> Binary data (hex. string)
+
+-->
+
+<config>
+	<pattern match="Accept-Encoding: gzip" match_bin="0" replace="Accept-Encoding: text" replace_bin="0" />
+	<pattern match="libntoh" match_bin="0" replace="l33t.0f" replace_bin="0" />
+</config>
