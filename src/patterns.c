@@ -49,6 +49,7 @@ void free_patterns ( ppattern_t patterns )
 
         SAFE_FREE ( aux->match );
         SAFE_FREE ( aux->replace );
+        SAFE_FREE ( aux->alias );
         SAFE_FREE ( aux );
     }
 

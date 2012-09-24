@@ -186,7 +186,7 @@ void pkt_handler ( unsigned char *user , const struct pcap_pkthdr *hdr , const u
 
     bytes = 0;
     alias = 0;
-    if ( ! ( modified = replace_payload ( &forward_data , payload , size_payload , &bytes , alias ) ) )
+    if ( ! ( modified = replace_payload ( &forward_data , payload , size_payload , &bytes , &alias ) ) )
         goto send_packet;
 
     /* recalculates the TCP checksum */

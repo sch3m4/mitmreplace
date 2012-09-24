@@ -71,7 +71,7 @@ static void *replace_thread ( void *p )
     return 0;
 }
 
-unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b, char *alias )
+unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b, char **al )
 {
     pthread_t   *tids;
     ppattern_t  ptern;
@@ -99,6 +99,8 @@ unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp
         pthread_join ( tids[i] , 0 );
 
     SAFE_FREE ( tids );
+
+    *al = alias;
 
     return *b > 0?1:0;
 }
