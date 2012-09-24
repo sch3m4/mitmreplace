@@ -71,7 +71,7 @@ static void *replace_thread ( void *p )
     return 0;
 }
 
-unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b, char *alias )
+unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b, char *al )
 {
     pthread_t   *tids;
     ppattern_t  ptern;
@@ -82,6 +82,7 @@ unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp
     payload = p;
     size_payload = sp;
     bytes = b;
+    alias = al;
 
     SAFE_CALLOC ( tids , data->patterns_count , sizeof ( pthread_t ) );
 
