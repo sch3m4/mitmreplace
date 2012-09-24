@@ -115,7 +115,7 @@ static size_t parse_nodes (xmlDocPtr doc, xmlNodePtr cur , ppattern_t *patterns 
                 node->rlen = strlen((const char*)node->replace);
             }
 
-            strdup ( node->alias , alias );
+            node->alias = strdup ( alias );
 
             add_pattern ( patterns , node );
             ret++;
