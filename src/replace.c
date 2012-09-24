@@ -100,7 +100,7 @@ unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp
 
     SAFE_FREE ( tids );
 
-    al = alias;
+    *al = alias;
 
     return *b > 0?1:0;
 }
