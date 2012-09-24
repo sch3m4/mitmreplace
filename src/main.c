@@ -152,6 +152,7 @@ void pkt_handler ( unsigned char *user , const struct pcap_pkthdr *hdr , const u
     size_t              size_payload;   /* payload size */
     size_t              bytes;
     unsigned char       modified;       /* to know if the payload has been modified */
+    char				*alias;			/* pattern alias */
 
     /* get ethernet header */
     eth = ( struct eth_header * ) pkt;
@@ -183,17 +184,18 @@ void pkt_handler ( unsigned char *user , const struct pcap_pkthdr *hdr , const u
     /* localizamos el payload y la cadena a reemplazar (si no se encuentra salimos) */
     payload = ( unsigned char * ) ( pkt + sizeof ( struct eth_header ) + ips + tcps );
 
-    if ( ! ( modified = replace_payload ( &forward_data , payload , size_payload , &bytes ) ) )
+    bytes = 0;
+    alias = 0;
+    if ( ! ( modified = replace_payload ( &forward_data , payload , size_payload , &bytes , &alias ) ) )
         goto send_packet;
 
     /* recalculates the TCP checksum */
-    fprintf ( stderr , "\nPaquete modificado!");
     tcp->th_sum = tcp_checksum ( ip->ip_proto , ( char* ) tcp , size_payload + tcps , ip->ip_src , ip->ip_dst , tcp->th_sum );
 
     /* show packet direction */
     fprintf ( stderr , "\n[ %s:%d ---> " , inet_ntoa ( ip->ip_src ) , ntohs ( tcp->th_sport ) );
     fprintf ( stderr , "%s:%d ] " , inet_ntoa ( ip->ip_dst ) , ntohs ( tcp->th_dport ) );
-    fprintf ( stderr , "---> OK! (%d bytes | SEQ: %d ACK: %d LEN: %d Checksum: 0x%04x)" , bytes , ntohs ( tcp->th_seq ) , ntohs ( tcp->th_ack ) , size_payload , ntohs ( tcp->th_sum ) );
+    fprintf ( stderr , "---> OK! (%d bytes | SEQ: %d ACK: %d LEN: %d Checksum: 0x%04x) - %s" , bytes , ntohs ( tcp->th_seq ) , ntohs ( tcp->th_ack ) , size_payload , ntohs ( tcp->th_sum ) , !alias?"N/A":alias);
 
 send_packet:
     if ( pcap_inject ( forward_data.outiface , pkt , hdr->caplen ) < 0 )

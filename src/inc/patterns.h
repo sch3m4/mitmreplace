@@ -47,6 +47,7 @@ typedef struct _pattern_
     unsigned char   flags;
     size_t          mlen;
     size_t          rlen;
+    char			*alias;
 } pattern_t , *ppattern_t;
 
 static const char patterns_error[4][21] =

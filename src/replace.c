@@ -39,9 +39,11 @@
 #include <patterns.h>
 #include <replace.h>
 
+/* I know, so dirty... */
 unsigned char   *payload;
 size_t          size_payload;
 size_t          *bytes;
+char			*alias;
 
 static void *replace_thread ( void *p )
 {
@@ -60,6 +62,7 @@ static void *replace_thread ( void *p )
             memcpy ( payload + i , ptern->replace , len );
             i += len;
             *bytes += len;
+            alias = ptern->alias;
         }
     }
 
@@ -68,7 +71,7 @@ static void *replace_thread ( void *p )
     return 0;
 }
 
-unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b )
+unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b, char *alias )
 {
     pthread_t   *tids;
     ppattern_t  ptern;
