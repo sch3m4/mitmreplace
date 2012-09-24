@@ -43,7 +43,6 @@
 unsigned char   *payload;
 size_t          size_payload;
 size_t          *bytes;
-char			*alias;
 
 static void *replace_thread ( void *p )
 {
@@ -62,7 +61,6 @@ static void *replace_thread ( void *p )
             memcpy ( payload + i , ptern->replace , len );
             i += len;
             *bytes += len;
-            alias = ptern->alias;
         }
     }
 
@@ -71,7 +69,7 @@ static void *replace_thread ( void *p )
     return 0;
 }
 
-unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b, char **al )
+unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp , size_t *b)
 {
     pthread_t   *tids;
     ppattern_t  ptern;
@@ -99,8 +97,6 @@ unsigned short replace_payload ( pfwconfig_t data , unsigned char *p , size_t sp
         pthread_join ( tids[i] , 0 );
 
     SAFE_FREE ( tids );
-
-    *al = alias;
 
     return *b > 0?1:0;
 }

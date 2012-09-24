@@ -37,6 +37,6 @@
 
 #include <forward.h>
 
-unsigned short replace_payload ( pfwconfig_t data , unsigned char *payload , size_t size_payload , size_t *bytes, char **alias );
+unsigned short replace_payload ( pfwconfig_t data , unsigned char *payload , size_t size_payload , size_t *bytes);
 
 #endif /* __REPLACE_H__ */

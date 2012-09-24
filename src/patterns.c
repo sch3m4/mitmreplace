@@ -77,7 +77,7 @@ static inline void hex_string ( char *src , unsigned char **dst , size_t *olen )
 
 static size_t parse_nodes (xmlDocPtr doc, xmlNodePtr cur , ppattern_t *patterns )
 {
-    xmlChar         *match,*mbin,*replace,*rbin,*alias;
+    xmlChar         *match,*mbin,*replace,*rbin;
     ppattern_t      node;
     size_t          ret = 0;
 
@@ -90,7 +90,6 @@ static size_t parse_nodes (xmlDocPtr doc, xmlNodePtr cur , ppattern_t *patterns 
             mbin = xmlGetProp(cur,(const xmlChar*) "match_bin" );
             replace = xmlGetProp(cur,(const xmlChar*) "replace");
             rbin = xmlGetProp(cur,(const xmlChar*) "replace_bin");
-            alias = xmlGetProp(cur,(const xmlChar*) "alias");
 
             if ( !match || !replace || !strlen((char*)match) || !strlen((char*)replace) )
                 goto tofree;
@@ -114,8 +113,6 @@ static size_t parse_nodes (xmlDocPtr doc, xmlNodePtr cur , ppattern_t *patterns 
                 node->replace = (unsigned char*) strdup ( (char*)replace );
                 node->rlen = strlen((const char*)node->replace);
             }
-
-            node->alias = strdup ( alias );
 
             add_pattern ( patterns , node );
             ret++;

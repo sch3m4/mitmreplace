@@ -10,6 +10,6 @@ Patterns configuration.
 -->
 
 <config>
-	<pattern alias="Encoding gzip->text" match="Accept-Encoding: gzip" match_bin="0" replace="Accept-Encoding: text" replace_bin="0" />
-	<pattern alias="libntoh->l33t.0f" match="libntoh" match_bin="0" replace="l33t.0f" replace_bin="0" />
+	<pattern match="Accept-Encoding: gzip" match_bin="0" replace="Accept-Encoding: text" replace_bin="0" />
+	<pattern match="libntoh" match_bin="0" replace="l33t.0f" replace_bin="0" />
 </config>
